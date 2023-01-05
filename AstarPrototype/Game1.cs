@@ -22,6 +22,13 @@ namespace AstarPrototype
         private Location endingLocation = new Location();
         private Location startingLocation = new Location();
         private AStarSearch aStar;
+        private Texture2D mobTex;
+        private Sprite mob;
+        private Vector2 startPos;
+        private Vector2 endPos;
+        private Vector2 mobSize;
+        private FollowPath ai;
+        private float speed = 0.5f;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -48,8 +55,10 @@ namespace AstarPrototype
             // TODO: use this.Content to load your game content here
             emptyRec = Content.Load<Texture2D>("BlankImage");
             GenerateFloorMap();
-
-            
+            mobTex = Content.Load<Texture2D>("Mob");
+            startPos = new Vector2(startingLocation.X,startingLocation.Y);
+            mobSize = new Vector2(40, 40);
+            mob = new Sprite(mobTex, startPos, mobSize, Color.White);
 
             
 
@@ -67,7 +76,7 @@ namespace AstarPrototype
                     Location cell = new Location(column, row);
                     if(cell == aStar.Start)
                     {
-                        tileArray[column,row].spriteColour = Color.Black;
+                        tileArray[column,row].spriteColour = Color.Blue;
                     }
                     else if(cell == aStar.Goal)
                     {
@@ -80,6 +89,53 @@ namespace AstarPrototype
                     else if (aStar.Path.Contains(cell))
                     {
                         tileArray[column, row].spriteColour = Color.Silver;
+                        if ((int)mob.spritePosition.X > cell.X)
+                        {
+                            while((int)mob.spritePosition.X > cell.X)
+                            {
+                                mob = new Sprite(mob.spriteTexture, new Vector2(mob.spritePosition.X - speed, mob.spritePosition.Y), mob.spriteSize, Color.White);
+                                if((int)mob.spritePosition.X >= cell.X)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        else if ((int)mob.spritePosition.X < cell.X)
+                        {
+                            while ((int)mob.spritePosition.X < cell.X)
+                            {
+                                mob = new Sprite(mob.spriteTexture, new Vector2(mob.spritePosition.X + speed, mob.spritePosition.Y), mob.spriteSize, Color.White);
+                                if ((int)mob.spritePosition.X >= cell.X)
+                                {
+                                    break;
+                                }
+                            }
+                            
+                        }
+                        else if ((int)mob.spritePosition.Y < cell.Y)
+                        {
+                            while ((int)mob.spritePosition.Y < cell.Y)
+                            {
+                                mob = new Sprite(mob.spriteTexture, new Vector2(mob.spritePosition.X, mob.spritePosition.Y + speed), mob.spriteSize, Color.White);
+                                if ((int)mob.spritePosition.Y >= cell.Y)
+                                {
+                                    break;
+                                }
+                            }
+                            
+                        }
+                        else if ((int)mob.spritePosition.Y > cell.Y)
+                        {
+                            while ((int)mob.spritePosition.Y > cell.Y)
+                            {
+                                mob = new Sprite(mob.spriteTexture, new Vector2(mob.spritePosition.X, mob.spritePosition.Y - speed), mob.spriteSize, Color.White);
+                                if ((int)mob.spritePosition.Y <= cell.Y)
+                                {
+                                    break;
+                                }
+                            }
+                            
+                        }
                     }
 
                 }
@@ -93,7 +149,8 @@ namespace AstarPrototype
 
             // TODO: Add your update logic here
 
-
+            //ai = new FollowPath(aStar,grid,mob);
+            //ai.PathAI(aStar, grid, mob);
             startingLocation = new Location(firstStart, secondStart);
             aStar = new AStarSearch(grid);
             endingLocation = new Location(first, second);
@@ -111,6 +168,7 @@ namespace AstarPrototype
             {
                 t.DrawSprite(_spriteBatch, t.spriteTexture);
             }
+            mob.DrawSprite(_spriteBatch, mobTex);
             base.Draw(gameTime);
         }
     }
