@@ -2,9 +2,9 @@
 {
     public struct Location
     { 
-        public readonly int X;
+        public int X;
 
-        public readonly int Y;
+        public int Y;
 
         public Location(int x, int y)
         {

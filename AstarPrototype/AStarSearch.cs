@@ -39,7 +39,7 @@ namespace AstarPrototype
 
             while(frontier.Count > 0)
             {
-                var currentLocation = frontier.Dequeue();
+                Location currentLocation = frontier.Dequeue();
 
                 if (currentLocation.Equals(Goal))
                     break;
@@ -69,7 +69,11 @@ namespace AstarPrototype
 
         private static double Heuristic(Location a, Location b)
         {
-            return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
+            double dx = Math.Abs(a.X - b.X);
+            double dy = Math.Abs(a.Y - b.Y);
+            return (dx > dy)?
+                14 * dy + 10 * (dx - dy):
+                14 * dx + 10 * (dy - dx);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace AstarPrototype
             Columns = columns;
             Rows = rows;
         }
+        
         public HashSet<Location> walls = new HashSet<Location>();
         public bool InBounds(Location id)
         {

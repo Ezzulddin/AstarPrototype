@@ -34,12 +34,6 @@ namespace AstarPrototype
                         tileArray[i, j] = new Tile(emptyRec, temPosition, pSize, Color.White);
                         grid.walls.Add(new Location(i, j));
                     }
-                    
-                    //if (tileValuesArray[i,j].ToString().Contains("2"))
-                    //{
-                    //    grid.walls.Add(new Location(j, i));
-
-                        //}
                     else if (tileValuesArray[i,j].ToString().Contains("0"))
                     {
                         tileArray[i,j] = new Tile(new Texture2D(graphics, 10, 10), new Vector2(0, 0), new Vector2(0, 0), Color.White);
