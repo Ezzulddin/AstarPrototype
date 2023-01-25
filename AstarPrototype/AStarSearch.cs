@@ -72,8 +72,8 @@ namespace AstarPrototype
             double dx = Math.Abs(a.X - b.X);
             double dy = Math.Abs(a.Y - b.Y);
             return (dx > dy)?
-                14 * dy + 10 * (dx - dy):
-                14 * dx + 10 * (dy - dx);
+                10 * dy + 10 * (dx - dy):
+                10 * dx + 10 * (dy - dx);
         }
     }
 }

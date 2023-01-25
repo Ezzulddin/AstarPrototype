@@ -28,7 +28,6 @@ namespace AstarPrototype
 
 
         public void DrawSprite(SpriteBatch spriteBatch, Texture2D texture)
-
         {
             spriteTexture = texture;
             spriteBatch.Begin();

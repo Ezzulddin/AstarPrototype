@@ -42,12 +42,13 @@ namespace AstarPrototype
 
         public TileLocation PlayerPos(Tile[,] tileArray, Player player, TileLocation posOfP, GraphicsDeviceManager graphics)
         {
+            Vector2 midPos = new Vector2(player.spritePosition.X +player.spriteSize.X/2, player.spritePosition.Y +player.spriteSize.Y /2);
             for (int i = 0; i <= tileArray.GetUpperBound(0); i++)
             {
                 for (int j = 0; j <= tileArray.GetUpperBound(1); j++)
                 {
-                    if (player.spritePosition.X >= tileArray[i, j].spritePosition.X && player.spritePosition.X <= tileArray[i, j].spritePosition.X + graphics.PreferredBackBufferWidth
-                        && player.spritePosition.Y >= tileArray[i, j].spritePosition.Y && player.spritePosition.Y <= tileArray[i, j].spritePosition.Y + graphics.PreferredBackBufferHeight)
+                    if (midPos.X >= tileArray[i, j].spritePosition.X && midPos.X <= tileArray[i, j].spritePosition.X + graphics.PreferredBackBufferWidth
+                        && midPos.Y >= tileArray[i, j].spritePosition.Y && midPos.Y <= tileArray[i, j].spritePosition.Y + graphics.PreferredBackBufferHeight)
                     {
                         posOfP.x = i;
                         posOfP.y = j;
@@ -58,13 +59,13 @@ namespace AstarPrototype
         }
         public TileLocation MobPos(Tile[,] tileArray, Sprite mob, TileLocation posOfM,GraphicsDeviceManager graphics)
         {
-            
+            Vector2 midPos = new Vector2(mob.spritePosition.X + mob.spriteSize.X / 2, mob.spritePosition.Y + mob.spriteSize.Y / 2);
             for (int i = 0; i <= tileArray.GetUpperBound(0); i++)
             {
                 for (int j = 0; j <= tileArray.GetUpperBound(1); j++)
                 {
-                    if (mob.spritePosition.X >= tileArray[i,j].spritePosition.X && mob.spritePosition.X <= tileArray[i,j].spritePosition.X + graphics.PreferredBackBufferWidth 
-                        && mob.spritePosition.Y >= tileArray[i,j].spritePosition.Y && mob.spritePosition.Y <= tileArray[i,j].spritePosition.Y + graphics.PreferredBackBufferHeight)
+                    if (midPos.X >= tileArray[i,j].spritePosition.X && midPos.X <= tileArray[i,j].spritePosition.X + graphics.PreferredBackBufferWidth 
+                        && midPos.Y >= tileArray[i,j].spritePosition.Y && midPos.Y <= tileArray[i,j].spritePosition.Y + graphics.PreferredBackBufferHeight)
                     {
                         posOfM.x = i;
                         posOfM.y = j;
