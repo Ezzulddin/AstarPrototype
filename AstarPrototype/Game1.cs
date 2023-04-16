@@ -20,8 +20,8 @@ namespace AstarPrototype
         private Tile[,] tileArray = new Tile[20, 20];
         private TileMapClass tileMap = new();
         private SquareGrid grid = new SquareGrid(20, 20);
-        private Location endingLocation = new();
-        private Location startingLocation = new();
+        private Location endingLocation,endingLocation2 = new();
+        private Location startingLocation,startingLocation2 = new();
         private AStarSearch aStar;
         private Texture2D mobTex;
         private Texture2D pTex;
@@ -66,12 +66,12 @@ namespace AstarPrototype
             #region Content
             emptyRec = Content.Load<Texture2D>("BlankImage");
             mobTex = Content.Load<Texture2D>("Mob");
-            pTex = Content.Load<Texture2D>("Mob");
+            pTex = Content.Load<Texture2D>("potential player");
             pPos = new Vector2(400, 400);
             startPos = new Vector2(200,80);
             mobSize = new Vector2(40, 40);
             mob = new Sprite(mobTex, startPos, mobSize, Color.White);
-            player = new Player(pTex,pPos,new Vector2(40,40),Color.White);
+            player = new Player(pTex,pPos,new Vector2(60,60),Color.White);
             posOfPlayer = new TileLocation(0,0);
             posOfMob = new TileLocation(0, 0);
             walls = new ();
@@ -99,12 +99,15 @@ namespace AstarPrototype
             posOfMob = area.MobPos(tileArray, mob, posOfMob,_graphics);
             startingLocation = new Location(posOfMob.x, posOfMob.y);
             endingLocation = new Location(posOfPlayer.x,posOfPlayer.y);
-            inArea = area.Area(posOfPlayer,posOfMob, startingLocation, inArea);
+            inArea = area.Area(posOfPlayer,posOfMob, startingLocation, inArea,_graphics);
+            
             if (inArea == true)
             {
                 aStar.CalculatedPath(startingLocation, endingLocation);
+                
                 path.DrawPath(grid, aStar, tileArray);
                 mob = ai.FollowPath(grid, aStar, posOfMob, mob);
+                
             }
 
             walls.DrawWalls(grid, aStar, tileArray);
@@ -125,6 +128,7 @@ namespace AstarPrototype
                 t.DrawSprite(_spriteBatch, t.spriteTexture);
             }
             mob.DrawSprite(_spriteBatch, mobTex);
+            //mob2.DrawSprite(_spriteBatch, mobTex);
             player.DrawSprite(_spriteBatch, pTex);
             base.Draw(gameTime);
         }

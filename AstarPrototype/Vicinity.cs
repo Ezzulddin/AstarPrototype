@@ -18,22 +18,19 @@ namespace AstarPrototype
     {
         int radius = 4;
         
-        public bool Area(TileLocation posOfP,TileLocation posOfM,Location startingPos, bool inArea)
+        public bool Area(TileLocation posOfP,TileLocation posOfM,Location startingPos, bool inArea, GraphicsDeviceManager graphics)
         {
 
-            for (int x = 0; x <= radius; x++)
+            for (int x = posOfM.x - radius; x <= posOfM.x + radius; x++)
             {
-                for (int y = 0; y <= radius; y++)
+                for (int y = posOfM.y - radius; y <= posOfM.y + radius; y++)
                 {
-                    if (posOfP.x <= posOfM.x + x && posOfP.y <= posOfM.y+  y)
+                    if (posOfP.x <= x && posOfP.y <= y)
                     {
                         inArea = true;
+                        
                     }
-                    else
-                    {
-                        inArea = false;
-                    }
-
+                    
                 }
             }
             return inArea;
